@@ -1,160 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Group Finder</title>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<style>
-
-    body {
-
-      font-family: system-ui, sans-serif;
-
-      background: #f3f4f6;
-
-      margin: 0;
-
-      padding: 2rem;
-
-      display: flex;
-
-      justify-content: center;
-
-      align-items: center;
-
-      height: 100vh;
-
-    }
- 
-    .card {
-
-      background: white;
-
-      border-radius: 12px;
-
-      padding: 2rem;
-
-      width: 100%;
-
-      max-width: 420px;
-
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-
-      text-align: center;
-
-    }
- 
-    input {
-
-      width: 100%;
-
-      font-size: 1rem;
-
-      padding: 0.8rem;
-
-      margin-bottom: 1rem;
-
-      border-radius: 8px;
-
-      border: 1px solid #ccc;
-
-    }
- 
-    button {
-
-      font-size: 1rem;
-
-      background-color: #2563eb;
-
-      color: white;
-
-      border: none;
-
-      border-radius: 8px;
-
-      padding: 0.75rem 1.5rem;
-
-      cursor: pointer;
-
-    }
- 
-    .result {
-
-      margin-top: 1.5rem;
-
-      font-size: 1.2rem;
-
-      font-weight: bold;
-
-      padding: 1rem;
-
-      border-radius: 1rem;
-
-      color: white;
-
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Group Finder</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: #ffffff;
+            padding: 24px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 16px;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            margin-bottom: 12px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 6px;
+            border: none;
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 16px;
+            border-radius: 8px;
+            background: #f1f3f5;
+            display: none;
+        }
+        .emoji {
+            font-size: 40px;
+            margin-bottom: 8px;
+        }
+        .error {
+            color: #c0392b;
+            margin-top: 16px;
+        }
+    </style>
 </head>
 <body>
-<div class="card">
-<h2>Find Your Group</h2>
-<input id="nameInput" type="text" placeholder="Enter your full name" />
-<button onclick="findGroup()">Search</button>
-<div id="result" class="result"></div>
+
+<div class="container">
+    <h1>Find My Group</h1>
+    <input type="text" id="nameInput" placeholder="Enter your name">
+    <button onclick="findGroup()">MY GROUP</button>
+
+    <div class="result" id="result">
+        <div class="emoji" id="emoji"></div>
+        <p><strong>Group:</strong> <span id="group"></span></p>
+        <p><strong>Group Name:</strong> <span id="groupName"></span></p>
+    </div>
+
+    <div class="error" id="error"></div>
 </div>
- 
-  <script>
 
-    const groupData = [
+<script>
+const data = [
+    { name: "John Narang", group: "1a", groupName: "Airplane", emoji: "✈️" },
+    { name: "MATTHEW LEE", group: "1a", groupName: "Airplane", emoji: "✈️" },
+    { name: "Elaine Lee", group: "1a", groupName: "Airplane", emoji: "✈️" },
+    { name: "Dennis Lam", group: "1a", groupName: "Airplane", emoji: "✈️" },
+    { name: "Eva Choi", group: "1a", groupName: "Airplane", emoji: "✈️" },
+    { name: "RICKY MAN", group: "1a", groupName: "Airplane", emoji: "✈️" },
 
-      { name: 'Andrew Bailey', group: '1a - Helicopter', emoji: '🚁', color: '#6B8E23' },
+    { name: "Andrew Bailey", group: "1a", groupName: "School Bus", emoji: "🚌" },
+    { name: "Rosalinda Salvacion", group: "1a", groupName: "School Bus", emoji: "🚌" },
+    { name: "Dexter Poon", group: "1a", groupName: "School Bus", emoji: "🚌" },
+    { name: "CHERRY LUI", group: "1a", groupName: "School Bus", emoji: "🚌" },
+    { name: "VICTOR AU", group: "1a", groupName: "School Bus", emoji: "🚌" },
+    { name: "Chris Chan", group: "1a", groupName: "School Bus", emoji: "🚌" },
 
-      { name: 'Elaine Lee', group: '1a - Helicopter', emoji: '🚁', color: '#6B8E23' },
+    { name: "Lucy Mak", group: "1b", groupName: "Ferry", emoji: "⛴️" },
+    { name: "Julian Shiu", group: "1b", groupName: "Ferry", emoji: "⛴️" },
+    { name: "GARY NG", group: "1b", groupName: "Ferry", emoji: "⛴️" },
+    { name: "Sabrina Lau", group: "1b", groupName: "Ferry", emoji: "⛴️" },
+    { name: "Derek Chau", group: "1b", groupName: "Ferry", emoji: "⛴️" },
+    { name: "Robert Taylor", group: "1b", groupName: "Ferry", emoji: "⛴️" },
 
-      { name: 'John Narang', group: '1a - Helicopter', emoji: '🚁', color: '#6B8E23' },
+    { name: "Cheuk Lo", group: "1b", groupName: "High-Speed Train", emoji: "🚄" },
+    { name: "Anita Lo", group: "1b", groupName: "High-Speed Train", emoji: "🚄" },
+    { name: "ALLAN LI", group: "1b", groupName: "High-Speed Train", emoji: "🚄" },
+    { name: "John Brownen", group: "1b", groupName: "High-Speed Train", emoji: "🚄" },
+    { name: "Thomas Chin", group: "1b", groupName: "High-Speed Train", emoji: "🚄" },
+    { name: "Fanny Chan", group: "1b", groupName: "High-Speed Train", emoji: "🚄" },
 
-      { name: 'Chris Chan', group: '1a - Helicopter', emoji: '🚁', color: '#6B8E23' },
+    { name: "Tony Chun", group: "1c", groupName: "Train", emoji: "🚆" },
+    { name: "Suki Ng", group: "1c", groupName: "Train", emoji: "🚆" },
+    { name: "Osman Aviles", group: "1c", groupName: "Train", emoji: "🚆" },
+    { name: "Alan Tang", group: "1c", groupName: "Train", emoji: "🚆" },
+    { name: "Peonie Lo", group: "1c", groupName: "Train", emoji: "🚆" },
 
-      { name: 'CHERRY LUI', group: '1a - Hot Air Balloon', emoji: '🎈', color: '#EF4444' },
+    { name: "AMIR BENNEGADI", group: "1c", groupName: "Sailboat", emoji: "⛵" },
+    { name: "Joseph Michael Baroque", group: "1c", groupName: "Sailboat", emoji: "⛵" },
+    { name: "PAUL VAN KESSEL", group: "1c", groupName: "Sailboat", emoji: "⛵" },
 
-      { name: 'Rosalinda Salvacion', group: '1a - Hot Air Balloon', emoji: '🎈', color: '#EF4444' },
+    { name: "Lawrence Fong", group: "EXO", groupName: "Rocket", emoji: "🚀" },
+    { name: "Pierre Bastjaens", group: "EXO", groupName: "Rocket", emoji: "🚀" },
+    { name: "Agatha Lee", group: "EXO", groupName: "Rocket", emoji: "🚀" },
+    { name: "Peter Clemmow", group: "EXO", groupName: "Rocket", emoji: "🚀" },
 
-      { name: 'Eva Choi', group: '1a - Hot Air Balloon', emoji: '🎈', color: '#EF4444' },
+    { name: "Alex McGowan", group: "EXO", groupName: "Space Shuttle", emoji: "🛰️" },
+    { name: "Keith Brown", group: "EXO", groupName: "Space Shuttle", emoji: "🛰️" },
+    { name: "Chris Kempis", group: "EXO", groupName: "Space Shuttle", emoji: "🛰️" },
+    { name: "Mandy Ng", group: "EXO", groupName: "Space Shuttle", emoji: "🛰️" }
+];
 
-      { name: 'Dennis Lam', group: '1a - Hot Air Balloon', emoji: '🎈', color: '#EF4444' }
+function findGroup() {
+    const input = document.getElementById("nameInput").value.trim().toLowerCase();
+    const resultDiv = document.getElementById("result");
+    const errorDiv = document.getElementById("error");
 
-    ];
- 
-    function findGroup() {
+    resultDiv.style.display = "none";
+    errorDiv.textContent = "";
 
-      const inputName = document.getElementById("nameInput").value.trim().toLowerCase();
-
-      const resultBox = document.getElementById("result");
- 
-      const found = groupData.find(entry => entry.name.toLowerCase() === inputName);
- 
-      if (found) {
-
-        resultBox.style.backgroundColor = found.color;
-
-        resultBox.innerHTML = `${found.emoji} ${found.group}<br>${found.name}`;
-
-      } else if (inputName) {
-
-        resultBox.style.backgroundColor = "#f87171";
-
-        resultBox.innerHTML = "❌ Name not found";
-
-      } else {
-
-        resultBox.innerHTML = "";
-
-        resultBox.style.backgroundColor = "transparent";
-
-      }
-
+    if (!input) {
+        errorDiv.textContent = "Please enter your name.";
+        return;
     }
+
+    const person = data.find(d => d.name.toLowerCase() === input);
+
+    if (!person || !person.group) {
+        errorDiv.textContent = "No group information found for this name.";
+        return;
+    }
+
+    document.getElementById("group").textContent = person.group;
+    document.getElementById("groupName").textContent = person.groupName;
+    document.getElementById("emoji").textContent = person.emoji;
+
+    resultDiv.style.display = "block";
+}
 </script>
+
 </body>
 </html>
- 
