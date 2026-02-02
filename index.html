@@ -2,25 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Group Finder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
             background: #f4f6f8;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
             margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .container {
             background: #ffffff;
             padding: 24px;
-            border-radius: 10px;
+            border-radius: 12px;
             width: 100%;
             max-width: 420px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.12);
             text-align: center;
         }
         h1 {
@@ -40,12 +40,12 @@
             font-size: 16px;
             border-radius: 6px;
             border: none;
-            background: #007bff;
+            background-color: #007bff;
             color: white;
             cursor: pointer;
         }
         button:hover {
-            background: #0056b3;
+            background-color: #0056b3;
         }
         .result {
             margin-top: 20px;
@@ -55,12 +55,12 @@
             display: none;
         }
         .emoji {
-            font-size: 40px;
+            font-size: 44px;
             margin-bottom: 8px;
         }
         .error {
-            color: #c0392b;
             margin-top: 16px;
+            color: #c0392b;
         }
     </style>
 </head>
@@ -68,7 +68,7 @@
 
 <div class="container">
     <h1>Find My Group</h1>
-    <input type="text" id="nameInput" placeholder="Enter your name">
+    <input type="text" id="nameInput" placeholder="Enter your full name">
     <button onclick="findGroup()">MY GROUP</button>
 
     <div class="result" id="result">
@@ -82,72 +82,106 @@
 
 <script>
 const data = [
-    { name: "John Narang", group: "1a", groupName: "Airplane", emoji: "✈️" },
-    { name: "MATTHEW LEE", group: "1a", groupName: "Airplane", emoji: "✈️" },
-    { name: "Elaine Lee", group: "1a", groupName: "Airplane", emoji: "✈️" },
-    { name: "Dennis Lam", group: "1a", groupName: "Airplane", emoji: "✈️" },
-    { name: "Eva Choi", group: "1a", groupName: "Airplane", emoji: "✈️" },
-    { name: "RICKY MAN", group: "1a", groupName: "Airplane", emoji: "✈️" },
+    { name:"John Narang", group:"1a", groupName:"Airplane", emoji:"✈️" },
+    { name:"Matthew Lee", group:"1a", groupName:"Airplane", emoji:"✈️" },
+    { name:"Elaine Lee", group:"1a", groupName:"Airplane", emoji:"✈️" },
+    { name:"Dennis Lam", group:"1a", groupName:"Airplane", emoji:"✈️" },
+    { name:"Eva Choi", group:"1a", groupName:"Airplane", emoji:"✈️" },
+    { name:"Ricky Man", group:"1a", groupName:"Airplane", emoji:"✈️" },
 
-    { name: "Andrew Bailey", group: "1a", groupName: "School Bus", emoji: "🚌" },
-    { name: "Rosalinda Salvacion", group: "1a", groupName: "School Bus", emoji: "🚌" },
-    { name: "Dexter Poon", group: "1a", groupName: "School Bus", emoji: "🚌" },
-    { name: "CHERRY LUI", group: "1a", groupName: "School Bus", emoji: "🚌" },
-    { name: "VICTOR AU", group: "1a", groupName: "School Bus", emoji: "🚌" },
-    { name: "Chris Chan", group: "1a", groupName: "School Bus", emoji: "🚌" },
+    { name:"Andrew Bailey", group:"1a", groupName:"School Bus", emoji:"🚌" },
+    { name:"Rosalinda Salvacion", group:"1a", groupName:"School Bus", emoji:"🚌" },
+    { name:"Dexter Poon", group:"1a", groupName:"School Bus", emoji:"🚌" },
+    { name:"Cherry Lui", group:"1a", groupName:"School Bus", emoji:"🚌" },
+    { name:"Victor Au", group:"1a", groupName:"School Bus", emoji:"🚌" },
+    { name:"Chris Chan", group:"1a", groupName:"School Bus", emoji:"🚌" },
 
-    { name: "Lucy Mak", group: "1b", groupName: "Ferry", emoji: "⛴️" },
-    { name: "Julian Shiu", group: "1b", groupName: "Ferry", emoji: "⛴️" },
-    { name: "GARY NG", group: "1b", groupName: "Ferry", emoji: "⛴️" },
-    { name: "Sabrina Lau", group: "1b", groupName: "Ferry", emoji: "⛴️" },
-    { name: "Derek Chau", group: "1b", groupName: "Ferry", emoji: "⛴️" },
-    { name: "Robert Taylor", group: "1b", groupName: "Ferry", emoji: "⛴️" },
+    { name:"Lucy Mak", group:"1b", groupName:"Ferry", emoji:"⛴️" },
+    { name:"Julian Shiu", group:"1b", groupName:"Ferry", emoji:"⛴️" },
+    { name:"Gary Ng", group:"1b", groupName:"Ferry", emoji:"⛴️" },
+    { name:"Sabrina Lau", group:"1b", groupName:"Ferry", emoji:"⛴️" },
+    { name:"Derek Chau", group:"1b", groupName:"Ferry", emoji:"⛴️" },
+    { name:"Robert Taylor", group:"1b", groupName:"Ferry", emoji:"⛴️" },
 
-    { name: "Cheuk Lo", group: "1b", groupName: "High-Speed Train", emoji: "🚄" },
-    { name: "Anita Lo", group: "1b", groupName: "High-Speed Train", emoji: "🚄" },
-    { name: "ALLAN LI", group: "1b", groupName: "High-Speed Train", emoji: "🚄" },
-    { name: "John Brownen", group: "1b", groupName: "High-Speed Train", emoji: "🚄" },
-    { name: "Thomas Chin", group: "1b", groupName: "High-Speed Train", emoji: "🚄" },
-    { name: "Fanny Chan", group: "1b", groupName: "High-Speed Train", emoji: "🚄" },
+    { name:"Cheuk Lo", group:"1b", groupName:"High-Speed Train", emoji:"🚄" },
+    { name:"Anita Lo", group:"1b", groupName:"High-Speed Train", emoji:"🚄" },
+    { name:"Allan Li", group:"1b", groupName:"High-Speed Train", emoji:"🚄" },
+    { name:"John Brownen", group:"1b", groupName:"High-Speed Train", emoji:"🚄" },
+    { name:"Thomas Chin", group:"1b", groupName:"High-Speed Train", emoji:"🚄" },
+    { name:"Fanny Chan", group:"1b", groupName:"High-Speed Train", emoji:"🚄" },
 
-    { name: "Tony Chun", group: "1c", groupName: "Train", emoji: "🚆" },
-    { name: "Suki Ng", group: "1c", groupName: "Train", emoji: "🚆" },
-    { name: "Osman Aviles", group: "1c", groupName: "Train", emoji: "🚆" },
-    { name: "Alan Tang", group: "1c", groupName: "Train", emoji: "🚆" },
-    { name: "Peonie Lo", group: "1c", groupName: "Train", emoji: "🚆" },
+    { name:"Tony Chun", group:"1c", groupName:"Train", emoji:"🚆" },
+    { name:"Suki Ng", group:"1c", groupName:"Train", emoji:"🚆" },
+    { name:"Osman Aviles", group:"1c", groupName:"Train", emoji:"🚆" },
+    { name:"Alan Tang", group:"1c", groupName:"Train", emoji:"🚆" },
+    { name:"Peonie Lo", group:"1c", groupName:"Train", emoji:"🚆" },
 
-    { name: "AMIR BENNEGADI", group: "1c", groupName: "Sailboat", emoji: "⛵" },
-    { name: "Joseph Michael Baroque", group: "1c", groupName: "Sailboat", emoji: "⛵" },
-    { name: "PAUL VAN KESSEL", group: "1c", groupName: "Sailboat", emoji: "⛵" },
+    { name:"Justin Chan", group:"1c", groupName:"Sailboat", emoji:"⛵" },
+    { name:"Amir Bennegadi", group:"1c", groupName:"Sailboat", emoji:"⛵" },
+    { name:"Joseph Michael Baroque", group:"1c", groupName:"Sailboat", emoji:"⛵" },
+    { name:"Paul Van Kessel", group:"1c", groupName:"Sailboat", emoji:"⛵" },
 
-    { name: "Lawrence Fong", group: "EXO", groupName: "Rocket", emoji: "🚀" },
-    { name: "Pierre Bastjaens", group: "EXO", groupName: "Rocket", emoji: "🚀" },
-    { name: "Agatha Lee", group: "EXO", groupName: "Rocket", emoji: "🚀" },
-    { name: "Peter Clemmow", group: "EXO", groupName: "Rocket", emoji: "🚀" },
+    { name:"Jack Bennett", group:"2a", groupName:"Ambulance", emoji:"🚑" },
+    { name:"Aldric Chau", group:"2a", groupName:"Ambulance", emoji:"🚑" },
+    { name:"Fanny Nip", group:"2a", groupName:"Ambulance", emoji:"🚑" },
+    { name:"Vivian Hui", group:"2a", groupName:"Ambulance", emoji:"🚑" },
+    { name:"Deepak Nair", group:"2a", groupName:"Ambulance", emoji:"🚑" },
 
-    { name: "Alex McGowan", group: "EXO", groupName: "Space Shuttle", emoji: "🛰️" },
-    { name: "Keith Brown", group: "EXO", groupName: "Space Shuttle", emoji: "🛰️" },
-    { name: "Chris Kempis", group: "EXO", groupName: "Space Shuttle", emoji: "🛰️" },
-    { name: "Mandy Ng", group: "EXO", groupName: "Space Shuttle", emoji: "🛰️" }
+    { name:"Tim Burns", group:"2a", groupName:"Tuk Tuk", emoji:"🛺" },
+    { name:"Anezka Chan", group:"2a", groupName:"Tuk Tuk", emoji:"🛺" },
+    { name:"Roy Cheng", group:"2a", groupName:"Tuk Tuk", emoji:"🛺" },
+    { name:"Charlotte Cheng", group:"2a", groupName:"Tuk Tuk", emoji:"🛺" },
+
+    { name:"Vanessa Zhao", group:"2b", groupName:"Bicycle", emoji:"🚲" },
+    { name:"Chethan Puttur", group:"2b", groupName:"Bicycle", emoji:"🚲" },
+    { name:"Cheryl Kwok", group:"2b", groupName:"Bicycle", emoji:"🚲" },
+    { name:"Emerson Lai", group:"2b", groupName:"Bicycle", emoji:"🚲" },
+
+    { name:"Priyatha Menon", group:"2b", groupName:"Limousine", emoji:"🚘" },
+    { name:"Akhil Vaidyanathan", group:"2b", groupName:"Limousine", emoji:"🚘" },
+    { name:"Roy Wong", group:"2b", groupName:"Limousine", emoji:"🚘" },
+    { name:"Stanley Or", group:"2b", groupName:"Limousine", emoji:"🚘" },
+
+    { name:"Lawrence Fong", group:"EXO", groupName:"Rocket", emoji:"🚀" },
+    { name:"Pierre Bastjaens", group:"EXO", groupName:"Rocket", emoji:"🚀" },
+    { name:"Agatha Lee", group:"EXO", groupName:"Rocket", emoji:"🚀" },
+    { name:"Peter Clemmow", group:"EXO", groupName:"Rocket", emoji:"🚀" },
+
+    { name:"Alex McGowan", group:"EXO", groupName:"Space Shuttle", emoji:"🛰️" },
+    { name:"Keith Brown", group:"EXO", groupName:"Space Shuttle", emoji:"🛰️" },
+    { name:"Chris Kempis", group:"EXO", groupName:"Space Shuttle", emoji:"🛰️" },
+    { name:"Mandy Ng", group:"EXO", groupName:"Space Shuttle", emoji:"🛰️" },
+
+    { name:"Walter Li", group:"FREE", groupName:"FREE", emoji:"✨" },
+    { name:"Riva Man", group:"FREE", groupName:"FREE", emoji:"✨" },
+    { name:"Clara Cao", group:"FREE", groupName:"FREE", emoji:"✨" },
+    { name:"Amy Lam", group:"FREE", groupName:"FREE", emoji:"✨" },
+    { name:"Claire Chen", group:"FREE", groupName:"FREE", emoji:"✨" },
+    { name:"Thalia Ripoll", group:"FREE", groupName:"FREE", emoji:"✨" },
+    { name:"Daniel Bowron", group:"FREE", groupName:"FREE", emoji:"✨" },
+    { name:"Anne-Sophie Lee", group:"FREE", groupName:"FREE", emoji:"✨" },
+    { name:"Francesca To", group:"FREE", groupName:"FREE", emoji:"✨" },
+    { name:"Khusrau Islam", group:"FREE", groupName:"FREE", emoji:"✨" },
+    { name:"Kingsley Birkett", group:"FREE", groupName:"FREE", emoji:"✨" }
 ];
 
 function findGroup() {
     const input = document.getElementById("nameInput").value.trim().toLowerCase();
-    const resultDiv = document.getElementById("result");
-    const errorDiv = document.getElementById("error");
+    const result = document.getElementById("result");
+    const error = document.getElementById("error");
 
-    resultDiv.style.display = "none";
-    errorDiv.textContent = "";
+    result.style.display = "none";
+    error.textContent = "";
 
     if (!input) {
-        errorDiv.textContent = "Please enter your name.";
+        error.textContent = "Please enter your name.";
         return;
     }
 
-    const person = data.find(d => d.name.toLowerCase() === input);
+    const person = data.find(p => p.name.toLowerCase() === input);
 
-    if (!person || !person.group) {
-        errorDiv.textContent = "No group information found for this name.";
+    if (!person) {
+        error.textContent = "Name not found. Please check spelling.";
         return;
     }
 
@@ -155,7 +189,7 @@ function findGroup() {
     document.getElementById("groupName").textContent = person.groupName;
     document.getElementById("emoji").textContent = person.emoji;
 
-    resultDiv.style.display = "block";
+    result.style.display = "block";
 }
 </script>
 
