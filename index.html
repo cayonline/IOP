@@ -1,175 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>My Group Finder</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f4f6f8;
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .container {
-            background: #ffffff;
-            padding: 24px;
-            border-radius: 12px;
-            width: 100%;
-            max-width: 420px;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-            text-align: center;
-        }
-        h1 {
-            margin-bottom: 16px;
-        }
-        input {
-            width: 100%;
-            padding: 12px;
-            font-size: 16px;
-            margin-bottom: 12px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-        }
-        button {
-            width: 100%;
-            padding: 12px;
-            font-size: 16px;
-            border-radius: 6px;
-            border: none;
-            background-color: #007bff;
-            color: white;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        .result {
-            margin-top: 20px;
-            padding: 16px;
-            border-radius: 8px;
-            background: #f1f3f5;
-            display: none;
-        }
-        .emoji {
-            font-size: 44px;
-            margin-bottom: 8px;
-        }
-        .error {
-            margin-top: 16px;
-            color: #c0392b;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>My Group Finder</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f6f8;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container {
+    background: #ffffff;
+    padding: 24px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    text-align: center;
+}
+input, button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    margin-top: 10px;
+    border-radius: 6px;
+}
+input { border: 1px solid #ccc; }
+button {
+    border: none;
+    background: #007bff;
+    color: white;
+    cursor: pointer;
+}
+button:hover { background: #0056b3; }
+.result {
+    margin-top: 20px;
+    padding: 16px;
+    background: #f1f3f5;
+    border-radius: 8px;
+    display: none;
+}
+.emoji { font-size: 44px; }
+.error { color: #c0392b; margin-top: 12px; }
+</style>
 </head>
 <body>
 
 <div class="container">
-    <h1>Find My Group</h1>
-    <input type="text" id="nameInput" placeholder="Enter your full name">
-    <button onclick="findGroup()">MY GROUP</button>
+<h1>Find My Group</h1>
+<input id="nameInput" placeholder="Enter your full name">
+<button onclick="findGroup()">MY GROUP</button>
 
-    <div class="result" id="result">
-        <div class="emoji" id="emoji"></div>
-        <p><strong>Group:</strong> <span id="group"></span></p>
-        <p><strong>Group Name:</strong> <span id="groupName"></span></p>
-    </div>
+<div class="result" id="result">
+<div class="emoji" id="emoji"></div>
+<p><strong>Group:</strong> <span id="group"></span></p>
+<p><strong>Group Name:</strong> <span id="groupName"></span></p>
+</div>
 
-    <div class="error" id="error"></div>
+<div class="error" id="error"></div>
 </div>
 
 <script>
 const data = [
-    { name:"John Narang", group:"1a", groupName:"Airplane", emoji:"✈️" },
-    { name:"Matthew Lee", group:"1a", groupName:"Airplane", emoji:"✈️" },
-    { name:"Elaine Lee", group:"1a", groupName:"Airplane", emoji:"✈️" },
-    { name:"Dennis Lam", group:"1a", groupName:"Airplane", emoji:"✈️" },
-    { name:"Eva Choi", group:"1a", groupName:"Airplane", emoji:"✈️" },
-    { name:"Ricky Man", group:"1a", groupName:"Airplane", emoji:"✈️" },
+/* 1a */
+{n:"John Narang",g:"1a",gn:"Airplane",e:"✈️"},
+{n:"Matthew Lee",g:"1a",gn:"Airplane",e:"✈️"},
+{n:"Elaine Lee",g:"1a",gn:"Airplane",e:"✈️"},
+{n:"Dennis Lam",g:"1a",gn:"Airplane",e:"✈️"},
+{n:"Eva Choi",g:"1a",gn:"Airplane",e:"✈️"},
+{n:"Ricky Man",g:"1a",gn:"Airplane",e:"✈️"},
+{n:"Andrew Bailey",g:"1a",gn:"School Bus",e:"🚌"},
+{n:"Rosalinda Salvacion",g:"1a",gn:"School Bus",e:"🚌"},
+{n:"Dexter Poon",g:"1a",gn:"School Bus",e:"🚌"},
+{n:"Cherry Lui",g:"1a",gn:"School Bus",e:"🚌"},
+{n:"Victor Au",g:"1a",gn:"School Bus",e:"🚌"},
+{n:"Chris Chan",g:"1a",gn:"School Bus",e:"🚌"},
 
-    { name:"Andrew Bailey", group:"1a", groupName:"School Bus", emoji:"🚌" },
-    { name:"Rosalinda Salvacion", group:"1a", groupName:"School Bus", emoji:"🚌" },
-    { name:"Dexter Poon", group:"1a", groupName:"School Bus", emoji:"🚌" },
-    { name:"Cherry Lui", group:"1a", groupName:"School Bus", emoji:"🚌" },
-    { name:"Victor Au", group:"1a", groupName:"School Bus", emoji:"🚌" },
-    { name:"Chris Chan", group:"1a", groupName:"School Bus", emoji:"🚌" },
+/* 1b */
+{n:"Lucy Mak",g:"1b",gn:"Ferry",e:"⛴️"},
+{n:"Julian Shiu",g:"1b",gn:"Ferry",e:"⛴️"},
+{n:"Gary Ng",g:"1b",gn:"Ferry",e:"⛴️"},
+{n:"Sabrina Lau",g:"1b",gn:"Ferry",e:"⛴️"},
+{n:"Derek Chau",g:"1b",gn:"Ferry",e:"⛴️"},
+{n:"Robert Taylor",g:"1b",gn:"Ferry",e:"⛴️"},
+{n:"Cheuk Lo",g:"1b",gn:"High-Speed Train",e:"🚄"},
+{n:"Anita Lo",g:"1b",gn:"High-Speed Train",e:"🚄"},
+{n:"Allan Li",g:"1b",gn:"High-Speed Train",e:"🚄"},
+{n:"John Brownen",g:"1b",gn:"High-Speed Train",e:"🚄"},
+{n:"Thomas Chin",g:"1b",gn:"High-Speed Train",e:"🚄"},
+{n:"Fanny Chan",g:"1b",gn:"High-Speed Train",e:"🚄"},
 
-    { name:"Lucy Mak", group:"1b", groupName:"Ferry", emoji:"⛴️" },
-    { name:"Julian Shiu", group:"1b", groupName:"Ferry", emoji:"⛴️" },
-    { name:"Gary Ng", group:"1b", groupName:"Ferry", emoji:"⛴️" },
-    { name:"Sabrina Lau", group:"1b", groupName:"Ferry", emoji:"⛴️" },
-    { name:"Derek Chau", group:"1b", groupName:"Ferry", emoji:"⛴️" },
-    { name:"Robert Taylor", group:"1b", groupName:"Ferry", emoji:"⛴️" },
+/* 1c */
+{n:"Tony Chun",g:"1c",gn:"Train",e:"🚆"},
+{n:"Suki Ng",g:"1c",gn:"Train",e:"🚆"},
+{n:"Osman Aviles",g:"1c",gn:"Train",e:"🚆"},
+{n:"Alan Tang",g:"1c",gn:"Train",e:"🚆"},
+{n:"Peonie Lo",g:"1c",gn:"Train",e:"🚆"},
+{n:"Justin Chan",g:"1c",gn:"Sailboat",e:"⛵"},
+{n:"Amir Bennegadi",g:"1c",gn:"Sailboat",e:"⛵"},
+{n:"Joseph Michael Baroque",g:"1c",gn:"Sailboat",e:"⛵"},
+{n:"Paul Van Kessel",g:"1c",gn:"Sailboat",e:"⛵"},
 
-    { name:"Cheuk Lo", group:"1b", groupName:"High-Speed Train", emoji:"🚄" },
-    { name:"Anita Lo", group:"1b", groupName:"High-Speed Train", emoji:"🚄" },
-    { name:"Allan Li", group:"1b", groupName:"High-Speed Train", emoji:"🚄" },
-    { name:"John Brownen", group:"1b", groupName:"High-Speed Train", emoji:"🚄" },
-    { name:"Thomas Chin", group:"1b", groupName:"High-Speed Train", emoji:"🚄" },
-    { name:"Fanny Chan", group:"1b", groupName:"High-Speed Train", emoji:"🚄" },
+/* 2a */
+{n:"Jack Bennett",g:"2a",gn:"Ambulance",e:"🚑"},
+{n:"Aldric Chau",g:"2a",gn:"Ambulance",e:"🚑"},
+{n:"Fanny Nip",g:"2a",gn:"Ambulance",e:"🚑"},
+{n:"Vivian Hui",g:"2a",gn:"Ambulance",e:"🚑"},
+{n:"Deepak Nair",g:"2a",gn:"Ambulance",e:"🚑"},
+{n:"Tim Burns",g:"2a",gn:"Tuk Tuk",e:"🛺"},
+{n:"Anezka Chan",g:"2a",gn:"Tuk Tuk",e:"🛺"},
+{n:"Roy Cheng",g:"2a",gn:"Tuk Tuk",e:"🛺"},
+{n:"Charlotte Cheng",g:"2a",gn:"Tuk Tuk",e:"🛺"},
 
-    { name:"Tony Chun", group:"1c", groupName:"Train", emoji:"🚆" },
-    { name:"Suki Ng", group:"1c", groupName:"Train", emoji:"🚆" },
-    { name:"Osman Aviles", group:"1c", groupName:"Train", emoji:"🚆" },
-    { name:"Alan Tang", group:"1c", groupName:"Train", emoji:"🚆" },
-    { name:"Peonie Lo", group:"1c", groupName:"Train", emoji:"🚆" },
+/* 2b */
+{n:"Vanessa Zhao",g:"2b",gn:"Bicycle",e:"🚲"},
+{n:"Chethan Puttur",g:"2b",gn:"Bicycle",e:"🚲"},
+{n:"Cheryl Kwok",g:"2b",gn:"Bicycle",e:"🚲"},
+{n:"Emerson Lai",g:"2b",gn:"Bicycle",e:"🚲"},
+{n:"Priyatha Menon",g:"2b",gn:"Limousine",e:"🚘"},
+{n:"Akhil Vaidyanathan",g:"2b",gn:"Limousine",e:"🚘"},
+{n:"Roy Wong",g:"2b",gn:"Limousine",e:"🚘"},
+{n:"Stanley Or",g:"2b",gn:"Limousine",e:"🚘"},
 
-    { name:"Justin Chan", group:"1c", groupName:"Sailboat", emoji:"⛵" },
-    { name:"Amir Bennegadi", group:"1c", groupName:"Sailboat", emoji:"⛵" },
-    { name:"Joseph Michael Baroque", group:"1c", groupName:"Sailboat", emoji:"⛵" },
-    { name:"Paul Van Kessel", group:"1c", groupName:"Sailboat", emoji:"⛵" },
+/* 3a */
+{n:"James Toye",g:"3a",gn:"Fire Truck",e:"🚒"},
+{n:"Munkuey Matungulu Four",g:"3a",gn:"Fire Truck",e:"🚒"},
+{n:"Yonnie Yu",g:"3a",gn:"Fire Truck",e:"🚒"},
+{n:"Rita Lee",g:"3a",gn:"Fire Truck",e:"🚒"},
+{n:"Maggie Wong",g:"3a",gn:"Hot Air Balloon",e:"🎈"},
+{n:"Andrew baird",g:"3a",gn:"Hot Air Balloon",e:"🎈"},
+{n:"Kevin Lau",g:"3a",gn:"Hot Air Balloon",e:"🎈"},
+{n:"Hayley Hunter",g:"3a",gn:"Hot Air Balloon",e:"🎈"},
+{n:"Keri Lui",g:"3a",gn:"Hot Air Balloon",e:"🎈"},
+{n:"Alan Kwok",g:"3a",gn:"Hot Air Balloon",e:"🎈"},
+{n:"Marc Pilmann",g:"3a",gn:"Race Car",e:"🏎️"},
+{n:"Baris Sonmez",g:"3a",gn:"Race Car",e:"🏎️"},
+{n:"Lincoln Mak",g:"3a",gn:"Race Car",e:"🏎️"},
+{n:"Simon Tsang",g:"3a",gn:"Race Car",e:"🏎️"},
+{n:"Carrie So",g:"3a",gn:"Race Car",e:"🏎️"},
+{n:"Josh Rogers",g:"3a",gn:"Tractor",e:"🚜"},
+{n:"Ken Tong",g:"3a",gn:"Tractor",e:"🚜"},
+{n:"Clemen Lai",g:"3a",gn:"Tractor",e:"🚜"},
+{n:"Cartney Sum",g:"3a",gn:"Tractor",e:"🚜"},
+{n:"Leo Chan",g:"3a",gn:"Tractor",e:"🚜"},
 
-    { name:"Jack Bennett", group:"2a", groupName:"Ambulance", emoji:"🚑" },
-    { name:"Aldric Chau", group:"2a", groupName:"Ambulance", emoji:"🚑" },
-    { name:"Fanny Nip", group:"2a", groupName:"Ambulance", emoji:"🚑" },
-    { name:"Vivian Hui", group:"2a", groupName:"Ambulance", emoji:"🚑" },
-    { name:"Deepak Nair", group:"2a", groupName:"Ambulance", emoji:"🚑" },
+/* 3b */
+{n:"Philippe Christol",g:"3b",gn:"Cable Car",e:"🚡"},
+{n:"Jocelyn Wai",g:"3b",gn:"Cable Car",e:"🚡"},
+{n:"Matthew Wong",g:"3b",gn:"Cable Car",e:"🚡"},
+{n:"Paul Longhurst",g:"3b",gn:"Cable Car",e:"🚡"},
+{n:"Ricky Hung",g:"3b",gn:"Cable Car",e:"🚡"},
+{n:"Chris Chang",g:"3b",gn:"Cable Car",e:"🚡"},
+{n:"Tony Lam",g:"3b",gn:"Helicopter",e:"🚁"},
+{n:"Gavin Haselmore",g:"3b",gn:"Helicopter",e:"🚁"},
+{n:"Glenn Devonport",g:"3b",gn:"Helicopter",e:"🚁"},
+{n:"Calvin Hui",g:"3b",gn:"Helicopter",e:"🚁"},
+{n:"Tony Pringle",g:"3b",gn:"Helicopter",e:"🚁"},
+{n:"Kelvin Tse",g:"3b",gn:"Helicopter",e:"🚁"},
+{n:"Pantelis Paspaliaris",g:"3b",gn:"Ice Cream Truck",e:"🍦🚚"},
+{n:"Max Mak",g:"3b",gn:"Ice Cream Truck",e:"🍦🚚"},
+{n:"Peter Sze",g:"3b",gn:"Ice Cream Truck",e:"🍦🚚"},
+{n:"Boris Wong",g:"3b",gn:"Ice Cream Truck",e:"🍦🚚"},
+{n:"Gary Chui",g:"3b",gn:"Ice Cream Truck",e:"🍦🚚"},
+{n:"Ruize Zhao",g:"3b",gn:"Ice Cream Truck",e:"🍦🚚"},
+{n:"Jacky Chu",g:"3b",gn:"Submarine",e:"🚢"},
+{n:"Carol Chan",g:"3b",gn:"Submarine",e:"🚢"},
+{n:"Tim Wong",g:"3b",gn:"Submarine",e:"🚢"},
+{n:"Michael Winner",g:"3b",gn:"Submarine",e:"🚢"},
+{n:"Kwong Wing Nip",g:"3b",gn:"Submarine",e:"🚢"},
+{n:"Derek Hui",g:"3b",gn:"Submarine",e:"🚢"},
 
-    { name:"Tim Burns", group:"2a", groupName:"Tuk Tuk", emoji:"🛺" },
-    { name:"Anezka Chan", group:"2a", groupName:"Tuk Tuk", emoji:"🛺" },
-    { name:"Roy Cheng", group:"2a", groupName:"Tuk Tuk", emoji:"🛺" },
-    { name:"Charlotte Cheng", group:"2a", groupName:"Tuk Tuk", emoji:"🛺" },
+/* EXO */
+{n:"Lawrence Fong",g:"EXO",gn:"Rocket",e:"🚀"},
+{n:"Pierre Bastjaens",g:"EXO",gn:"Rocket",e:"🚀"},
+{n:"Agatha Lee",g:"EXO",gn:"Rocket",e:"🚀"},
+{n:"Peter Clemmow",g:"EXO",gn:"Rocket",e:"🚀"},
+{n:"Alex McGowan",g:"EXO",gn:"Space Shuttle",e:"🛰️"},
+{n:"Keith Brown",g:"EXO",gn:"Space Shuttle",e:"🛰️"},
+{n:"Chris Kempis",g:"EXO",gn:"Space Shuttle",e:"🛰️"},
+{n:"Mandy Ng",g:"EXO",gn:"Space Shuttle",e:"🛰️"},
 
-    { name:"Vanessa Zhao", group:"2b", groupName:"Bicycle", emoji:"🚲" },
-    { name:"Chethan Puttur", group:"2b", groupName:"Bicycle", emoji:"🚲" },
-    { name:"Cheryl Kwok", group:"2b", groupName:"Bicycle", emoji:"🚲" },
-    { name:"Emerson Lai", group:"2b", groupName:"Bicycle", emoji:"🚲" },
-
-    { name:"Priyatha Menon", group:"2b", groupName:"Limousine", emoji:"🚘" },
-    { name:"Akhil Vaidyanathan", group:"2b", groupName:"Limousine", emoji:"🚘" },
-    { name:"Roy Wong", group:"2b", groupName:"Limousine", emoji:"🚘" },
-    { name:"Stanley Or", group:"2b", groupName:"Limousine", emoji:"🚘" },
-
-    { name:"Lawrence Fong", group:"EXO", groupName:"Rocket", emoji:"🚀" },
-    { name:"Pierre Bastjaens", group:"EXO", groupName:"Rocket", emoji:"🚀" },
-    { name:"Agatha Lee", group:"EXO", groupName:"Rocket", emoji:"🚀" },
-    { name:"Peter Clemmow", group:"EXO", groupName:"Rocket", emoji:"🚀" },
-
-    { name:"Alex McGowan", group:"EXO", groupName:"Space Shuttle", emoji:"🛰️" },
-    { name:"Keith Brown", group:"EXO", groupName:"Space Shuttle", emoji:"🛰️" },
-    { name:"Chris Kempis", group:"EXO", groupName:"Space Shuttle", emoji:"🛰️" },
-    { name:"Mandy Ng", group:"EXO", groupName:"Space Shuttle", emoji:"🛰️" },
-
-    { name:"Walter Li", group:"FREE", groupName:"FREE", emoji:"✨" },
-    { name:"Riva Man", group:"FREE", groupName:"FREE", emoji:"✨" },
-    { name:"Clara Cao", group:"FREE", groupName:"FREE", emoji:"✨" },
-    { name:"Amy Lam", group:"FREE", groupName:"FREE", emoji:"✨" },
-    { name:"Claire Chen", group:"FREE", groupName:"FREE", emoji:"✨" },
-    { name:"Thalia Ripoll", group:"FREE", groupName:"FREE", emoji:"✨" },
-    { name:"Daniel Bowron", group:"FREE", groupName:"FREE", emoji:"✨" },
-    { name:"Anne-Sophie Lee", group:"FREE", groupName:"FREE", emoji:"✨" },
-    { name:"Francesca To", group:"FREE", groupName:"FREE", emoji:"✨" },
-    { name:"Khusrau Islam", group:"FREE", groupName:"FREE", emoji:"✨" },
-    { name:"Kingsley Birkett", group:"FREE", groupName:"FREE", emoji:"✨" }
+/* FREE */
+{n:"Walter Li",g:"FREE",gn:"FREE",e:"✨"},
+{n:"Riva Man",g:"FREE",gn:"FREE",e:"✨"},
+{n:"Clara Cao",g:"FREE",gn:"FREE",e:"✨"},
+{n:"Amy Lam",g:"FREE",gn:"FREE",e:"✨"},
+{n:"Claire Chen",g:"FREE",gn:"FREE",e:"✨"},
+{n:"Thalia Ripoll",g:"FREE",gn:"FREE",e:"✨"},
+{n:"Daniel Bowron",g:"FREE",gn:"FREE",e:"✨"},
+{n:"Anne-Sophie Lee",g:"FREE",gn:"FREE",e:"✨"},
+{n:"Francesca To",g:"FREE",gn:"FREE",e:"✨"},
+{n:"Khusrau Islam",g:"FREE",gn:"FREE",e:"✨"},
+{n:"Kingsley Birkett",g:"FREE",gn:"FREE",e:"✨"}
 ];
 
 function findGroup() {
     const input = document.getElementById("nameInput").value.trim().toLowerCase();
     const result = document.getElementById("result");
     const error = document.getElementById("error");
-
     result.style.display = "none";
     error.textContent = "";
 
@@ -178,17 +211,15 @@ function findGroup() {
         return;
     }
 
-    const person = data.find(p => p.name.toLowerCase() === input);
-
-    if (!person) {
+    const p = data.find(x => x.n.toLowerCase() === input);
+    if (!p) {
         error.textContent = "Name not found. Please check spelling.";
         return;
     }
 
-    document.getElementById("group").textContent = person.group;
-    document.getElementById("groupName").textContent = person.groupName;
-    document.getElementById("emoji").textContent = person.emoji;
-
+    document.getElementById("group").textContent = p.g;
+    document.getElementById("groupName").textContent = p.gn;
+    document.getElementById("emoji").textContent = p.e;
     result.style.display = "block";
 }
 </script>
